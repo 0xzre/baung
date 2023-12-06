@@ -1,0 +1,42 @@
+[
+  {
+    "rule": "Prohibition of Hate Speech and Discrimination",
+    "description": "The rule against hate speech and discrimination strictly forbids any use of language that incites violence or promotes discrimination against individuals or groups based on their race, ethnicity, religion, gender identity, sexual orientation, or other protected characteristics."
+  },
+  {
+    "rule": "No Posting of Sexually Explicit Content",
+    "description": "Posting explicit nudity or pornography is not allowed."
+  },
+  {
+    "rule": "Respect for Personal Privacy",
+    "description": "Sharing personal information about others, such as addresses, phone numbers, social security numbers, or other private details, without their consent is prohibited."
+  },
+  {
+    "rule": "No Spam or Deceptive Content",
+    "description": "Engaging in scams, phishing attempts, or deceptive advertising is strictly prohibited."
+  },
+  {
+    "rule": "No Threats or Harassment",
+    "description": "Engaging in cyberbullying or targeted harassment is strictly forbidden."
+  },
+  {
+    "rule": "Prohibition of Promoting Illegal Activities",
+    "description": "Promoting or glorifying illegal activities, such as drug use or terrorism, is not allowed."
+  },
+  {
+    "rule": "No Unauthorized Posting of Copyrighted Material",
+    "description": "Posting copyrighted material without obtaining the necessary permissions is not permitted."
+  },
+  {
+    "rule": "Prohibition of Graphic Violence or Gore",
+    "description": "Posting content that contains graphic violence or gore is prohibited."
+  },
+  {
+    "rule": "Preventing the Spread of False or Misleading Information",
+    "description": "Posting false or misleading information about public health or safety is not allowed."
+  },
+  {
+    "rule": "Prohibition of Encouraging Self-Harm or Suicide",
+    "description": "Encouraging self-harm or suicide in any form is strictly prohibited."
+  }
+]

@@ -1,54 +1,63 @@
+require("dotenv").config();
 const express = require("express");
+const adminRoutes = require("./routes/admin.route");
+const userRoutes = require("./routes/user.route");
+const postRoutes = require("./routes/post.route");
+const communityRoutes = require("./routes/community.route");
+const contextAuthRoutes = require("./routes/context-auth.route");
+const search = require("./controllers/search.controller");
+const Database = require("./config/database");
+const decodeToken = require("./middlewares/auth/decodeToken");
+
 const app = express();
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+
 const cors = require("cors");
 const morgan = require("morgan");
+const passport = require("passport");
 
-dotenv.config();
+const PORT = process.env.PORT || 4000;
 
-// internal imports
-const {
-  notFoundHandler,
-  errorHandler,
-} = require("./middlewares/common/errorHandler");
+const db = new Database(process.env.MONGODB_URI);
 
-mongoose.set("strictQuery", false);
+db.connect().catch((err) =>
+  console.error("Error connecting to database:", err)
+);
 
-// Connect to DB
-mongoose
-  .connect(process.env.DB_CONNECT)
-  .then(() => console.log("Connected to DB!"))
-  .catch((err) => console.log(err));
 app.use(cors());
-app.use(morgan("dev"));
-// request parser
+app.use(morgan("combined"));
+app.use("/assets/userFiles", express.static(__dirname + "/assets/userFiles"));
+app.use(
+  "/assets/userAvatars",
+  express.static(__dirname + "/assets/userAvatars")
+);
+console.log(__dirname)
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+require("./config/passport.js");
 
-// user routes
-const userRouter = require("./routes/userRouter");
-app.use("/users", userRouter);
+app.get("/server-status", (req, res) => {
+  res.status(200).json({ message: "Server is up and running!" });
+});
 
-// post routes
-const postRouter = require("./routes/postRouter");
-app.use("/posts", postRouter);
+app.get("/search", decodeToken, search);
 
-//body parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/auth", contextAuthRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
+app.use("/communities", communityRoutes);
+app.use("/admin", adminRoutes);
 
-//parse cookies
-app.use(cookieParser(process.env.COOKIE_SECRET));
+process.on("SIGINT", async () => {
+  try {
+    await db.disconnect();
+    console.log("Disconnected from database.");
+    process.exit(0);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+});
 
-// 404 error handling
-app.use(notFoundHandler);
-
-//error handling
-app.use(errorHandler);
-
-app.listen(process.env.PORT, () =>
-  console.log(`Server up and running on port ${process.env.PORT}!`)
-);
+app.listen(PORT, () => console.log(`Server up and running on port ${PORT}!`));
