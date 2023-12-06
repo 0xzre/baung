@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import createAppStore from "./redux/store";
-import axios from "axios";
 import CommonLoading from "./components/loader/CommonLoading";
 import App from "./App";
 import { getTitleFromRoute } from "./utils/docTitle";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
+import { API } from "./redux/api/utils"
 
 const ErrorComponent = ({ errorMessage }) => (
   <div className="text-red-500 font-bold text-center">{errorMessage}</div>
@@ -21,7 +21,7 @@ const AppContainer = () => {
   useEffect(() => {
     const checkServerStatus = async () => {
       try {
-        await axios.get(import.meta.env.VITE_APP_API_URL + "/server-status");
+        await API.get("/server-status");
       } catch (err) {
         setError("Server is down. Please try again later.");
       } finally {
