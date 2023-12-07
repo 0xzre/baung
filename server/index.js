@@ -23,14 +23,25 @@ db.connect().catch((err) =>
   console.error("Error connecting to database:", err)
 );
 
-app.use(cors());
+var allowedOrigins = ['https://baung.vercel.app']
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      var msg = 'The CORS policy for this site does not ' +
+        'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 app.use(morgan("combined"));
 app.use("/assets/userFiles", express.static(__dirname + "/assets/userFiles"));
 app.use(
   "/assets/userAvatars",
   express.static(__dirname + "/assets/userAvatars")
 );
-console.log(__dirname)
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

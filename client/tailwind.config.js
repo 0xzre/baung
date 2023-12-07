@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-export const content = [
+const content = [
   "./src/**/*.{js,jsx,ts,tsx}",
   "./node_modules/tw-elements/dist/js/**/*.js",
 ];
-export const theme = {
+const theme = {
   container: {
     padding: {
       DEFAULT: "1rem",
@@ -46,4 +46,10 @@ export const theme = {
     },
   },
 };
-export const plugins = [];
+const plugins = [];
+
+export default {
+  content,
+  theme,
+  plugins,
+}
