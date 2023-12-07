@@ -5,8 +5,8 @@ import { getJoinedCommunitiesAction } from "../../redux/actions/communityActions
 import {
   HiOutlineHome,
   HiOutlineUserCircle,
-  HiOutlineRectangleStack,
-  HiOutlineTag,
+  HiOutlineStar,
+  HiOutlineArchiveBox,
 } from "react-icons/hi2";
 import { HiOutlineUserGroup } from "react-icons/hi2";
 import { GiTeamIdea } from "react-icons/gi";
@@ -47,17 +47,10 @@ const Leftbar = ({ showLeftbar }) => {
           </Link>
           <Link
             className="flex items-center gap-2 text-lg font-medium hover:text-primary"
-            to="/profile"
-          >
-            <HiOutlineUserCircle className="text-xl" />
-            <p>Profile</p>
-          </Link>
-          <Link
-            className="flex items-center gap-2 text-lg font-medium hover:text-primary"
             to="/saved"
           >
-            <HiOutlineTag className="text-xl" />
-            <p>Saved</p>
+            <HiOutlineArchiveBox className="text-xl" />
+            <p>Bookmarks</p>
           </Link>
 
           {user && user.role === "general" && (
@@ -65,10 +58,17 @@ const Leftbar = ({ showLeftbar }) => {
               className="flex items-center gap-2 text-lg font-medium hover:text-primary"
               to="/following"
             >
-              <HiOutlineRectangleStack className="text-xl" />
+              <HiOutlineStar className="text-xl" />
               <p>Following</p>
             </Link>
           )}
+          <Link
+            className="flex items-center gap-2 text-lg font-medium hover:text-primary"
+            to="/profile"
+          >
+            <HiOutlineUserCircle className="text-xl" />
+            <p>Profile</p>
+          </Link>
 
           <hr className="w-full my-4 border-gray-300" />
 
@@ -77,7 +77,7 @@ const Leftbar = ({ showLeftbar }) => {
               <div className="flex items-center justify-between">
                 <div className="flex gap-1 font-medium items-center">
                   <HiOutlineUserGroup className="text-xl" />
-                  Communities
+                  Community
                 </div>
 
                 <Link

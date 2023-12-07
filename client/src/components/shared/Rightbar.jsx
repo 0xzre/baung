@@ -80,7 +80,7 @@ const Rightbar = () => {
       {currentLocation !== "/communities" && (
         <div>
           <div className="flex items-end justify-between mb-4">
-            <h5 className="font-semibold text-sm">Suggested Communities</h5>
+            <h5 className="font-semibold text-sm">Interesting Communities</h5>
             {remainingCount > 0 && (
               <Link
                 className="flex relative items-center text-sm font-medium text-primary mr-4"
@@ -97,7 +97,7 @@ const Rightbar = () => {
 
           {notJoinedCommunitiesFetched && visibleCommunities.length === 0 && (
             <div className="text-center italic text-gray-400">
-              No communities to join. Check back later
+              No communities to join yet :(
             </div>
           )}
           <ul className="flex flex-col gap-3 ">
@@ -145,11 +145,11 @@ const Rightbar = () => {
       )}
 
       <hr className="my-3" />
-      <h5 className="mb-4 text-sm font-semibold">Popular Users to Follow</h5>
+      <h5 className="mb-4 text-sm font-semibold">People you might like</h5>
 
       {publicUsersFetched && recommendedUsers?.length === 0 && (
         <div className="text-center italic text-gray-400">
-          No users to follow. Check back later
+          No users yet, but dont be sad!
         </div>
       )}
       <ul className="flex flex-col gap-3">

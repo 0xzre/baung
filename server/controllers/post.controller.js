@@ -352,6 +352,7 @@ const deletePost = async (req, res) => {
   try {
     const id = req.params.id;
     const post = await Post.findById(id);
+    console.log(post)
 
     if (!post) {
       return res.status(404).json({
