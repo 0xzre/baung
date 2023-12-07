@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router";
 import LoadingSpinner from "../components/loader/ButtonLoadingSpinner";
 import axios from "axios";
 
-const BASE_URL = import.meta.env.REACT_APP_API_URL;
+const BASE_URL = import.meta.env.VITE_APP_API_URL;
 
 const BlockDevice = () => {
   const [loading, setLoading] = useState(false);
