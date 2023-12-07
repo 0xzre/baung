@@ -9,7 +9,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
 
 const verifyLoginValidation = [
-  query("email").isEmail().normalizeEmail(),
+  query("email").isEmail().normalizeEmail({ gmail_remove_dots: false }),
   query("id").isLength({ min: 24, max: 24 }),
   (req, res, next) => {
     const errors = validationResult(req);
