@@ -50,7 +50,7 @@ const UserProfile = ({ userData }) => {
                 You haven't posted anything yet
               </p>
               <img
-                className="max-w-sm rounded-full"
+                className="max-w-[300px] rounded-full"
                 src={NoPost}
                 alt="no post"
               />
