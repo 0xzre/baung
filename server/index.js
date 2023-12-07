@@ -36,6 +36,7 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+app.set('trust proxy', 1)
 app.use(morgan("combined"));
 app.use("/assets/userFiles", express.static(__dirname + "/assets/userFiles"));
 app.use(

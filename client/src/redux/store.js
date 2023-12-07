@@ -9,8 +9,7 @@ const createAppStore = async () => {
     const store = configureStore({
       reducer: rootReducer,
       // middleware: [thunk, tokenMiddleware],
-      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tokenMiddleware),
-      devTools: process.env.NODE_ENV !== 'production',
+      middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tokenMiddleware)
     });
 
     await store.dispatch(initializeAuth());
