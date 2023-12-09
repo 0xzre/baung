@@ -21,11 +21,7 @@ async function createAdmin() {
     { type: "password", name: "password", message: "Enter password: " },
   ];
 
-  // const answers = inquirer.prompt(questions);
-  const answers = {
-    username: "cili",
-    password: "sapikuda",
-  }
+  const answers = inquirer.prompt(questions);
 
   admin.username = answers.username;
   admin.password = answers.password;

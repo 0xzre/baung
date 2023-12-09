@@ -84,7 +84,7 @@ const Leftbar = ({ showLeftbar }) => {
                   className="flex relative items-center text-sm font-medium text-primary mr-4"
                   to="/my-communities"
                 >
-                  See all
+                  More
                   <p className="absolute -top-2 -right-4 text-white text-xs bg-primary w-4 h-4 rounded-full flex justify-center items-center">
                     {" "}
                     {joinedCommunities.length}

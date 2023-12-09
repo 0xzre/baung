@@ -301,9 +301,8 @@ const addUser = async (req, res, next) => {
 
   const defaultAvatar =
     "https://raw.githubusercontent.com/0xzre/publics/master/baung/profile.jpg";
-  const fileUrl = req.files?.[0]?.filename
-    ? `${req.protocol}://${req.get("host")}/assets/userAvatars/${req.files[0].filename
-    }`
+  const fileUrl = req.files?.[0]?.location
+    ? req.files[0].location
     : defaultAvatar;
 
   const emailDomain = req.body.email.split("@")[1];

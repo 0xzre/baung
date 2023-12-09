@@ -1,28 +1,37 @@
-const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
+const { S3Client } = require("@aws-sdk/client-s3");
+const multerS3 = require('multer-s3')
+const awsKey = process.env.AWS_ACCESS_KEY_ID
+const awsSecret = process.env.AWS_SECRET_ACCESS_KEY
+
+const s3Client = new S3Client({
+  region: 'ap-southeast-2',
+  credentials: {
+    accessKeyId: awsKey,
+    secretAccessKey: awsSecret,
+  },
+});
 
 function fileUpload(req, res, next) {
-  const up_folder = path.join(import.meta.dir, "../assets/userFiles");
-
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      if (!fs.existsSync(up_folder)) {
-        fs.mkdirSync(up_folder, { recursive: true });
-      }
-      cb(null, up_folder);
+  const storages3 = multerS3({
+    s3: s3Client,
+    bucket: process.env.AWS_BUCKET,
+    acl: "public-read",
+    metadata: (req, file, cb) => {
+      cb(null, { fieldname: file.fieldname })
     },
-    filename: (req, file, cb) => {
+    key: (req, file, cb) => {
       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
       const ext = path.extname(file.originalname);
       cb(null, file.fieldname + "-" + uniqueSuffix + ext);
-    },
-  });
+    }
+  })
 
   const upload = multer({
-    storage: storage,
+    storage: storages3,
     limits: {
-      fileSize: 50 * 1024 * 1024,
+      fileSize: 5 * 1024 * 1024,
     },
     fileFilter: (req, file, cb) => {
       if (
@@ -50,12 +59,8 @@ function fileUpload(req, res, next) {
     }
 
     const file = req.files[0];
-    const fileUrl = `${req.protocol}://${req.get("host")}/assets/userFiles/${
-      file.filename
-    }`;
-
     req.file = file;
-    req.fileUrl = fileUrl;
+    req.fileUrl = file.location
     req.fileType = file.mimetype.split("/")[0];
 
     next();
