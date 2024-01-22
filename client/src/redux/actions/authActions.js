@@ -3,7 +3,7 @@ import * as types from "../constants/authConstants";
 import { isValidToken } from "../../utils/authUtils";
 import { refreshTokenAction } from "./refreshTokenAction";
 
-export const initializeAuth = () => async (dispatch) => {
+export const initializeAuth = (navigate) => async (dispatch) => {
   const accessToken = JSON.parse(localStorage.getItem("profile"))?.accessToken;
   const refreshToken = JSON.parse(
     localStorage.getItem("profile")
@@ -15,7 +15,7 @@ export const initializeAuth = () => async (dispatch) => {
       dispatch(setRefreshToken(refreshToken));
       dispatch(setUserData(JSON.parse(localStorage.getItem("profile")).user));
     } else {
-      await dispatch(refreshTokenAction(refreshToken));
+      await dispatch(refreshTokenAction(refreshToken,navigate));
     }
   }
 };

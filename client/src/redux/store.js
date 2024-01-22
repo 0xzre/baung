@@ -4,7 +4,7 @@ import rootReducer from "./reducers";
 import { tokenMiddleware } from "../middlewares/tokenMiddleware";
 import { initializeAuth } from "./actions/authActions";
 
-const createAppStore = async () => {
+const createAppStore = async (navigate) => {
   try {
     const store = configureStore({
       reducer: rootReducer,
@@ -12,7 +12,7 @@ const createAppStore = async () => {
       middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(tokenMiddleware)
     });
 
-    await store.dispatch(initializeAuth());
+    await store.dispatch(initializeAuth(navigate));
 
     return store;
   } catch (err) {

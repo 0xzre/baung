@@ -5,8 +5,8 @@ import CommonLoading from "./components/loader/CommonLoading";
 import App from "./App";
 import { getTitleFromRoute } from "./utils/docTitle";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
-import { API } from "./redux/api/utils"
+import { useLocation, useNavigate } from "react-router-dom";
+import { API } from "./redux/api/utils";
 
 const ErrorComponent = ({ errorMessage }) => (
   <div className="text-red-500 font-bold text-center">{errorMessage}</div>
@@ -17,6 +17,7 @@ const AppContainer = () => {
   const [store, setStore] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkServerStatus = async () => {
@@ -38,7 +39,7 @@ const AppContainer = () => {
   useEffect(() => {
     const initializeStore = async () => {
       try {
-        const appStore = await createAppStore();
+        const appStore = await createAppStore(navigate);
         setStore(appStore);
       } catch (err) {
         setError(`Error initializing the app: ${err.message}`);

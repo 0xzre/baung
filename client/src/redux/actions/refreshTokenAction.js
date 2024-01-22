@@ -13,7 +13,7 @@ API.interceptors.request.use((req) => {
   }
   return req;
 });
-export const refreshTokenAction = (refreshToken) => async (dispatch) => {
+export const refreshTokenAction = (refreshToken,navigate) => async (dispatch) => {
   try {
     const response = await API.post("/users/refresh-token", {
       refreshToken,
@@ -31,5 +31,7 @@ export const refreshTokenAction = (refreshToken) => async (dispatch) => {
       type: "REFRESH_TOKEN_FAIL",
       payload: error.response.data,
     });
+    navigate("/signin")
+
   }
 };
